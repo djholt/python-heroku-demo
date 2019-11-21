@@ -43,7 +43,7 @@ class SquirrelDB:
         return None
 
     def updateSquirrel(self, squirrelId, name, size):
-        data = [name, size]
+        data = [name, size, squirrelId]
         self.cursor.execute("UPDATE squirrels SET name = %s, size = %s WHERE id = %s", data)
         self.connection.commit()
         return None

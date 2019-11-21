@@ -32,20 +32,24 @@ class SquirrelDB:
         return self.cursor.fetchall()
 
     def getSquirrel(self, squirrelId):
-        self.cursor.execute("SELECT * FROM squirrels WHERE id = %s", (squirrelId,))
+        data = [squirrelId]
+        self.cursor.execute("SELECT * FROM squirrels WHERE id = %s", data)
         return self.cursor.fetchone()
 
-    def createSquirrel(self, data):
-        self.cursor.execute("INSERT INTO squirrels (name, size) VALUES (%s, %s)", (data["name"], data["size"]))
+    def createSquirrel(self, name, size):
+        data = [name, size]
+        self.cursor.execute("INSERT INTO squirrels (name, size) VALUES (%s, %s)", data)
         self.connection.commit()
         return None
 
-    def updateSquirrel(self, squirrelId, data):
-        self.cursor.execute("UPDATE squirrels SET name = %s, size = %s WHERE id = %s", (data["name"], data["size"], squirrelId))
+    def updateSquirrel(self, squirrelId, name, size):
+        data = [name, size]
+        self.cursor.execute("UPDATE squirrels SET name = %s, size = %s WHERE id = %s", data)
         self.connection.commit()
         return None
 
     def deleteSquirrel(self, squirrelId):
-        self.cursor.execute("DELETE FROM squirrels WHERE id = %s", (squirrelId,))
+        data = [squirrelId]
+        self.cursor.execute("DELETE FROM squirrels WHERE id = %s", data)
         self.connection.commit()
         return None

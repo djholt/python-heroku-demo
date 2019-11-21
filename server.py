@@ -98,7 +98,8 @@ class SquirrelServerHandler(BaseHTTPRequestHandler):
 
     def handleSquirrelsCreate(self):
         db = SquirrelDB()
-        db.createSquirrel(self.getRequestData())
+        body = self.getRequestData()
+        db.createSquirrel(body["name"], body["size"])
         self.send_response(201)
         self.end_headers()
 
@@ -106,7 +107,8 @@ class SquirrelServerHandler(BaseHTTPRequestHandler):
         db = SquirrelDB()
         squirrel = db.getSquirrel(squirrelId)
         if squirrel:
-            db.updateSquirrel(squirrelId, self.getRequestData())
+            body = self.getRequestData()
+            db.updateSquirrel(squirrelId, body["name"], body["size"])
             self.send_response(204)
             self.end_headers()
         else:
